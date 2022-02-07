@@ -7,7 +7,31 @@ option go_package = "github.com/schnetzlerjoe/interamm/x/interamm/types";
 
 // Msg defines the Msg service.
 service Msg {
-    // this line is used by starport scaffolding # proto/tx/rpc
+      rpc SwapCosmos(MsgSwapCosmos) returns (MsgSwapCosmosResponse);
+  rpc SwapOsmosis(MsgSwapOsmosis) returns (MsgSwapOsmosisResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgSwapCosmos {
+  string creator = 1;
+  string poolId = 2;
+  string swapType = 3;
+  string offerCoin = 4;
+  string demandCoinDenom = 5;
+  string orderPrice = 6;
+  string swapFeeRate = 7;
+}
+
+message MsgSwapCosmosResponse {
+}
+
+message MsgSwapOsmosis {
+  string creator = 1;
+  string tokenIn = 2;
+  string tokenOutMinAmount = 3;
+}
+
+message MsgSwapOsmosisResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
