@@ -1,0 +1,14 @@
+syntax = "proto3";
+package schnetzlerjoe.interamm.interamm;
+
+import "gogoproto/gogo.proto";
+import "interamm/params.proto";
+// this line is used by starport scaffolding # genesis/proto/import
+
+option go_package = "github.com/schnetzlerjoe/interamm/x/interamm/types";
+
+// GenesisState defines the interamm module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+  // this line is used by starport scaffolding # genesis/proto/state
+}
