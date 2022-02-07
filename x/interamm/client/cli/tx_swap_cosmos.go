@@ -1,56 +1,29 @@
 package cli
 
 import (
-	"fmt"
 	"io/ioutil"
-	"time"
-
-	"github.com/pkg/errors"
-	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
+	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-
-	// "github.com/cosmos/cosmos-sdk/client/flags"
 	intertxtypes "github.com/cosmos/interchain-accounts/x/inter-tx/types"
-	"github.com/schnetzlerjoe/interamm/x/interamm/types"
+	"github.com/pkg/errors"
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
-var (
-	DefaultRelativePacketTimeoutTimestamp = uint64((time.Duration(10) * time.Minute).Nanoseconds())
-)
+var _ = strconv.Itoa(0)
 
-const (
-	flagPacketTimeoutTimestamp = "packet-timeout-timestamp"
-	listSeparator              = ","
-)
-
-// GetTxCmd returns the transaction commands for this module
-func GetTxCmd() *cobra.Command {
+func CmdSwapCosmos() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:                        types.ModuleName,
-		Short:                      fmt.Sprintf("%s transactions subcommands", types.ModuleName),
-		DisableFlagParsing:         true,
-		SuggestionsMinimumDistance: 2,
-		RunE:                       client.ValidateCmd,
-	}
+		Use:   "swap-cosmos [pool-id] [swap-type] [offer-coin] [demand-coin-denom] [order-price] [swap-fee-rate]",
+		Short: "Broadcast message swap-cosmos",
+		Args:  cobra.ExactArgs(6),
+		RunE: func(cmd *cobra.Command, args []string) (err error) {
 
-	cmd.AddCommand(CmdSwapCosmos())
-	cmd.AddCommand(CmdSwapOsmosis())
-	// this line is used by starport scaffolding # 1
-
-	return cmd
-}
-
-func getSubmitTxCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:  "submit [path/to/sdk_msg.json]",
-		Args: cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
@@ -84,9 +57,6 @@ func getSubmitTxCmd() *cobra.Command {
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},
 	}
-
-	cmd.Flags().AddFlagSet(fsConnectionID)
-	_ = cmd.MarkFlagRequired(FlagConnectionID)
 
 	flags.AddTxFlagsToCmd(cmd)
 

@@ -9,7 +9,11 @@ import (
 	grpc1 "github.com/gogo/protobuf/grpc"
 	proto "github.com/gogo/protobuf/proto"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
+	io "io"
 	math "math"
+	math_bits "math/bits"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -23,19 +27,265 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+type MsgSwapCosmos struct {
+	Creator         string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	PoolId          string `protobuf:"bytes,2,opt,name=poolId,proto3" json:"poolId,omitempty"`
+	SwapType        string `protobuf:"bytes,3,opt,name=swapType,proto3" json:"swapType,omitempty"`
+	OfferCoin       string `protobuf:"bytes,4,opt,name=offerCoin,proto3" json:"offerCoin,omitempty"`
+	DemandCoinDenom string `protobuf:"bytes,5,opt,name=demandCoinDenom,proto3" json:"demandCoinDenom,omitempty"`
+	OrderPrice      string `protobuf:"bytes,6,opt,name=orderPrice,proto3" json:"orderPrice,omitempty"`
+	SwapFeeRate     string `protobuf:"bytes,7,opt,name=swapFeeRate,proto3" json:"swapFeeRate,omitempty"`
+}
+
+func (m *MsgSwapCosmos) Reset()         { *m = MsgSwapCosmos{} }
+func (m *MsgSwapCosmos) String() string { return proto.CompactTextString(m) }
+func (*MsgSwapCosmos) ProtoMessage()    {}
+func (*MsgSwapCosmos) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d91e989ba921dc1a, []int{0}
+}
+func (m *MsgSwapCosmos) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgSwapCosmos) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgSwapCosmos.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgSwapCosmos) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSwapCosmos.Merge(m, src)
+}
+func (m *MsgSwapCosmos) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgSwapCosmos) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSwapCosmos.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgSwapCosmos proto.InternalMessageInfo
+
+func (m *MsgSwapCosmos) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgSwapCosmos) GetPoolId() string {
+	if m != nil {
+		return m.PoolId
+	}
+	return ""
+}
+
+func (m *MsgSwapCosmos) GetSwapType() string {
+	if m != nil {
+		return m.SwapType
+	}
+	return ""
+}
+
+func (m *MsgSwapCosmos) GetOfferCoin() string {
+	if m != nil {
+		return m.OfferCoin
+	}
+	return ""
+}
+
+func (m *MsgSwapCosmos) GetDemandCoinDenom() string {
+	if m != nil {
+		return m.DemandCoinDenom
+	}
+	return ""
+}
+
+func (m *MsgSwapCosmos) GetOrderPrice() string {
+	if m != nil {
+		return m.OrderPrice
+	}
+	return ""
+}
+
+func (m *MsgSwapCosmos) GetSwapFeeRate() string {
+	if m != nil {
+		return m.SwapFeeRate
+	}
+	return ""
+}
+
+type MsgSwapCosmosResponse struct {
+}
+
+func (m *MsgSwapCosmosResponse) Reset()         { *m = MsgSwapCosmosResponse{} }
+func (m *MsgSwapCosmosResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgSwapCosmosResponse) ProtoMessage()    {}
+func (*MsgSwapCosmosResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d91e989ba921dc1a, []int{1}
+}
+func (m *MsgSwapCosmosResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgSwapCosmosResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgSwapCosmosResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgSwapCosmosResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSwapCosmosResponse.Merge(m, src)
+}
+func (m *MsgSwapCosmosResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgSwapCosmosResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSwapCosmosResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgSwapCosmosResponse proto.InternalMessageInfo
+
+type MsgSwapOsmosis struct {
+	Creator           string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	TokenIn           string `protobuf:"bytes,2,opt,name=tokenIn,proto3" json:"tokenIn,omitempty"`
+	TokenOutMinAmount string `protobuf:"bytes,3,opt,name=tokenOutMinAmount,proto3" json:"tokenOutMinAmount,omitempty"`
+}
+
+func (m *MsgSwapOsmosis) Reset()         { *m = MsgSwapOsmosis{} }
+func (m *MsgSwapOsmosis) String() string { return proto.CompactTextString(m) }
+func (*MsgSwapOsmosis) ProtoMessage()    {}
+func (*MsgSwapOsmosis) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d91e989ba921dc1a, []int{2}
+}
+func (m *MsgSwapOsmosis) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgSwapOsmosis) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgSwapOsmosis.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgSwapOsmosis) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSwapOsmosis.Merge(m, src)
+}
+func (m *MsgSwapOsmosis) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgSwapOsmosis) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSwapOsmosis.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgSwapOsmosis proto.InternalMessageInfo
+
+func (m *MsgSwapOsmosis) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgSwapOsmosis) GetTokenIn() string {
+	if m != nil {
+		return m.TokenIn
+	}
+	return ""
+}
+
+func (m *MsgSwapOsmosis) GetTokenOutMinAmount() string {
+	if m != nil {
+		return m.TokenOutMinAmount
+	}
+	return ""
+}
+
+type MsgSwapOsmosisResponse struct {
+}
+
+func (m *MsgSwapOsmosisResponse) Reset()         { *m = MsgSwapOsmosisResponse{} }
+func (m *MsgSwapOsmosisResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgSwapOsmosisResponse) ProtoMessage()    {}
+func (*MsgSwapOsmosisResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d91e989ba921dc1a, []int{3}
+}
+func (m *MsgSwapOsmosisResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgSwapOsmosisResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgSwapOsmosisResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgSwapOsmosisResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSwapOsmosisResponse.Merge(m, src)
+}
+func (m *MsgSwapOsmosisResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgSwapOsmosisResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSwapOsmosisResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgSwapOsmosisResponse proto.InternalMessageInfo
+
+func init() {
+	proto.RegisterType((*MsgSwapCosmos)(nil), "schnetzlerjoe.interamm.interamm.MsgSwapCosmos")
+	proto.RegisterType((*MsgSwapCosmosResponse)(nil), "schnetzlerjoe.interamm.interamm.MsgSwapCosmosResponse")
+	proto.RegisterType((*MsgSwapOsmosis)(nil), "schnetzlerjoe.interamm.interamm.MsgSwapOsmosis")
+	proto.RegisterType((*MsgSwapOsmosisResponse)(nil), "schnetzlerjoe.interamm.interamm.MsgSwapOsmosisResponse")
+}
+
 func init() { proto.RegisterFile("interamm/tx.proto", fileDescriptor_d91e989ba921dc1a) }
 
 var fileDescriptor_d91e989ba921dc1a = []byte{
-	// 129 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0xcc, 0xcc, 0x2b, 0x49,
-	0x2d, 0x4a, 0xcc, 0xcd, 0xd5, 0x2f, 0xa9, 0xd0, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x92, 0x2f,
-	0x4e, 0xce, 0xc8, 0x4b, 0x2d, 0xa9, 0xca, 0x49, 0x2d, 0xca, 0xca, 0x4f, 0xd5, 0x83, 0x29, 0x80,
-	0x33, 0x8c, 0x58, 0xb9, 0x98, 0x7d, 0x8b, 0xd3, 0x9d, 0x7c, 0x4e, 0x3c, 0x92, 0x63, 0xbc, 0xf0,
-	0x48, 0x8e, 0xf1, 0xc1, 0x23, 0x39, 0xc6, 0x09, 0x8f, 0xe5, 0x18, 0x2e, 0x3c, 0x96, 0x63, 0xb8,
-	0xf1, 0x58, 0x8e, 0x21, 0xca, 0x28, 0x3d, 0xb3, 0x24, 0xa3, 0x34, 0x49, 0x2f, 0x39, 0x3f, 0x57,
-	0x1f, 0xc5, 0x30, 0x7d, 0xb8, 0x6d, 0x15, 0x08, 0x66, 0x49, 0x65, 0x41, 0x6a, 0x71, 0x12, 0x1b,
-	0xd8, 0x72, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x80, 0x02, 0x69, 0x7a, 0x91, 0x00, 0x00,
-	0x00,
+	// 382 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x52, 0xcf, 0x8a, 0xda, 0x40,
+	0x18, 0x37, 0xb5, 0xd5, 0xfa, 0x49, 0x5b, 0x1c, 0xa8, 0x1d, 0xa4, 0xa4, 0x92, 0x93, 0x87, 0x92,
+	0x80, 0x85, 0xf6, 0xdc, 0x5a, 0x0a, 0x42, 0xc5, 0x62, 0x7b, 0xea, 0x2d, 0x26, 0x9f, 0x9a, 0xd6,
+	0xcc, 0x17, 0x66, 0x46, 0xd4, 0x7d, 0x8a, 0x7d, 0xac, 0x3d, 0x7a, 0xdc, 0xe3, 0xa2, 0x87, 0x7d,
+	0x81, 0x7d, 0x80, 0xc5, 0x21, 0xd1, 0x64, 0x17, 0x76, 0xd7, 0xdb, 0xf7, 0xfb, 0x33, 0xf3, 0x9b,
+	0xf9, 0xcd, 0x40, 0x23, 0x12, 0x1a, 0xa5, 0x1f, 0xc7, 0x9e, 0x5e, 0xb9, 0x89, 0x24, 0x4d, 0xec,
+	0x83, 0x0a, 0x66, 0x02, 0xf5, 0xd9, 0x1c, 0xe5, 0x3f, 0x42, 0x37, 0x33, 0x1c, 0x06, 0xe7, 0xda,
+	0x82, 0x57, 0x03, 0x35, 0xfd, 0xbd, 0xf4, 0x93, 0x1e, 0xa9, 0x98, 0x14, 0xe3, 0x50, 0x0d, 0x24,
+	0xfa, 0x9a, 0x24, 0xb7, 0xda, 0x56, 0xa7, 0x36, 0xca, 0x20, 0x6b, 0x42, 0x25, 0x21, 0x9a, 0xf7,
+	0x43, 0xfe, 0xcc, 0x08, 0x29, 0x62, 0x2d, 0x78, 0xa9, 0x96, 0x7e, 0xf2, 0x67, 0x9d, 0x20, 0x2f,
+	0x1b, 0xe5, 0x80, 0xd9, 0x7b, 0xa8, 0xd1, 0x64, 0x82, 0xb2, 0x47, 0x91, 0xe0, 0xcf, 0x8d, 0x78,
+	0x24, 0x58, 0x07, 0xde, 0x84, 0x18, 0xfb, 0x22, 0xdc, 0xa3, 0xef, 0x28, 0x28, 0xe6, 0x2f, 0x8c,
+	0xe7, 0x2e, 0xcd, 0x6c, 0x00, 0x92, 0x21, 0xca, 0x5f, 0x32, 0x0a, 0x90, 0x57, 0x8c, 0x29, 0xc7,
+	0xb0, 0x36, 0xd4, 0xf7, 0x99, 0x3f, 0x10, 0x47, 0xbe, 0x46, 0x5e, 0x35, 0x86, 0x3c, 0xe5, 0xbc,
+	0x83, 0xb7, 0x85, 0x8b, 0x8e, 0x50, 0x25, 0x24, 0x14, 0x3a, 0x12, 0x5e, 0xa7, 0xc2, 0x70, 0xcf,
+	0x47, 0x0f, 0x55, 0xc0, 0xa1, 0xaa, 0xe9, 0x3f, 0x8a, 0xbe, 0x48, 0x3b, 0xc8, 0x20, 0xfb, 0x08,
+	0x0d, 0x33, 0x0e, 0x17, 0x7a, 0x10, 0x89, 0xaf, 0x31, 0x2d, 0x84, 0x4e, 0xdb, 0xb8, 0x2f, 0x38,
+	0x1c, 0x9a, 0xc5, 0xcc, 0xec, 0x34, 0xdd, 0x1b, 0x0b, 0xca, 0x03, 0x35, 0x65, 0x1a, 0x20, 0xf7,
+	0x28, 0xae, 0xfb, 0xc8, 0x43, 0xba, 0x85, 0xbb, 0xb5, 0x3e, 0x9f, 0xe6, 0xcf, 0xd2, 0xd9, 0x12,
+	0xea, 0xf9, 0x22, 0xbc, 0xa7, 0x6e, 0x93, 0x2e, 0x68, 0x7d, 0x39, 0x71, 0x41, 0x16, 0xfc, 0xed,
+	0xe7, 0xc5, 0xd6, 0xb6, 0x36, 0x5b, 0xdb, 0xba, 0xda, 0xda, 0xd6, 0xf9, 0xce, 0x2e, 0x6d, 0x76,
+	0x76, 0xe9, 0x72, 0x67, 0x97, 0xfe, 0x76, 0xa7, 0x91, 0x9e, 0x2d, 0xc6, 0x6e, 0x40, 0xb1, 0x57,
+	0xd8, 0xdc, 0x3b, 0x7c, 0xf7, 0xd5, 0x71, 0xd4, 0xeb, 0x04, 0xd5, 0xb8, 0x62, 0x7e, 0xff, 0xa7,
+	0xdb, 0x00, 0x00, 0x00, 0xff, 0xff, 0x64, 0x2e, 0x40, 0x7f, 0x12, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -50,6 +300,8 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
+	SwapCosmos(ctx context.Context, in *MsgSwapCosmos, opts ...grpc.CallOption) (*MsgSwapCosmosResponse, error)
+	SwapOsmosis(ctx context.Context, in *MsgSwapOsmosis, opts ...grpc.CallOption) (*MsgSwapOsmosisResponse, error)
 }
 
 type msgClient struct {
@@ -60,22 +312,954 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 	return &msgClient{cc}
 }
 
+func (c *msgClient) SwapCosmos(ctx context.Context, in *MsgSwapCosmos, opts ...grpc.CallOption) (*MsgSwapCosmosResponse, error) {
+	out := new(MsgSwapCosmosResponse)
+	err := c.cc.Invoke(ctx, "/schnetzlerjoe.interamm.interamm.Msg/SwapCosmos", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SwapOsmosis(ctx context.Context, in *MsgSwapOsmosis, opts ...grpc.CallOption) (*MsgSwapOsmosisResponse, error) {
+	out := new(MsgSwapOsmosisResponse)
+	err := c.cc.Invoke(ctx, "/schnetzlerjoe.interamm.interamm.Msg/SwapOsmosis", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
+	SwapCosmos(context.Context, *MsgSwapCosmos) (*MsgSwapCosmosResponse, error)
+	SwapOsmosis(context.Context, *MsgSwapOsmosis) (*MsgSwapOsmosisResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
 type UnimplementedMsgServer struct {
 }
 
+func (*UnimplementedMsgServer) SwapCosmos(ctx context.Context, req *MsgSwapCosmos) (*MsgSwapCosmosResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SwapCosmos not implemented")
+}
+func (*UnimplementedMsgServer) SwapOsmosis(ctx context.Context, req *MsgSwapOsmosis) (*MsgSwapOsmosisResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SwapOsmosis not implemented")
+}
+
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
 	s.RegisterService(&_Msg_serviceDesc, srv)
+}
+
+func _Msg_SwapCosmos_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSwapCosmos)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SwapCosmos(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/schnetzlerjoe.interamm.interamm.Msg/SwapCosmos",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SwapCosmos(ctx, req.(*MsgSwapCosmos))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SwapOsmosis_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSwapOsmosis)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SwapOsmosis(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/schnetzlerjoe.interamm.interamm.Msg/SwapOsmosis",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SwapOsmosis(ctx, req.(*MsgSwapOsmosis))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "schnetzlerjoe.interamm.interamm.Msg",
 	HandlerType: (*MsgServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    "interamm/tx.proto",
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "SwapCosmos",
+			Handler:    _Msg_SwapCosmos_Handler,
+		},
+		{
+			MethodName: "SwapOsmosis",
+			Handler:    _Msg_SwapOsmosis_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "interamm/tx.proto",
 }
+
+func (m *MsgSwapCosmos) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgSwapCosmos) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgSwapCosmos) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.SwapFeeRate) > 0 {
+		i -= len(m.SwapFeeRate)
+		copy(dAtA[i:], m.SwapFeeRate)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SwapFeeRate)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.OrderPrice) > 0 {
+		i -= len(m.OrderPrice)
+		copy(dAtA[i:], m.OrderPrice)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.OrderPrice)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.DemandCoinDenom) > 0 {
+		i -= len(m.DemandCoinDenom)
+		copy(dAtA[i:], m.DemandCoinDenom)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.DemandCoinDenom)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.OfferCoin) > 0 {
+		i -= len(m.OfferCoin)
+		copy(dAtA[i:], m.OfferCoin)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.OfferCoin)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.SwapType) > 0 {
+		i -= len(m.SwapType)
+		copy(dAtA[i:], m.SwapType)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.SwapType)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.PoolId) > 0 {
+		i -= len(m.PoolId)
+		copy(dAtA[i:], m.PoolId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.PoolId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgSwapCosmosResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgSwapCosmosResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgSwapCosmosResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgSwapOsmosis) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgSwapOsmosis) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgSwapOsmosis) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.TokenOutMinAmount) > 0 {
+		i -= len(m.TokenOutMinAmount)
+		copy(dAtA[i:], m.TokenOutMinAmount)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TokenOutMinAmount)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.TokenIn) > 0 {
+		i -= len(m.TokenIn)
+		copy(dAtA[i:], m.TokenIn)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TokenIn)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgSwapOsmosisResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgSwapOsmosisResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgSwapOsmosisResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
+	offset -= sovTx(v)
+	base := offset
+	for v >= 1<<7 {
+		dAtA[offset] = uint8(v&0x7f | 0x80)
+		v >>= 7
+		offset++
+	}
+	dAtA[offset] = uint8(v)
+	return base
+}
+func (m *MsgSwapCosmos) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.PoolId)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.SwapType)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.OfferCoin)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.DemandCoinDenom)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.OrderPrice)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.SwapFeeRate)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgSwapCosmosResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgSwapOsmosis) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TokenIn)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TokenOutMinAmount)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgSwapOsmosisResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func sovTx(x uint64) (n int) {
+	return (math_bits.Len64(x|1) + 6) / 7
+}
+func sozTx(x uint64) (n int) {
+	return sovTx(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *MsgSwapCosmos) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgSwapCosmos: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgSwapCosmos: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PoolId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PoolId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SwapType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SwapType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OfferCoin", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OfferCoin = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DemandCoinDenom", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DemandCoinDenom = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OrderPrice", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OrderPrice = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SwapFeeRate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SwapFeeRate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgSwapCosmosResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgSwapCosmosResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgSwapCosmosResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgSwapOsmosis) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgSwapOsmosis: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgSwapOsmosis: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TokenIn", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TokenIn = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TokenOutMinAmount", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TokenOutMinAmount = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgSwapOsmosisResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgSwapOsmosisResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgSwapOsmosisResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func skipTx(dAtA []byte) (n int, err error) {
+	l := len(dAtA)
+	iNdEx := 0
+	depth := 0
+	for iNdEx < l {
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return 0, ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return 0, io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		wireType := int(wire & 0x7)
+		switch wireType {
+		case 0:
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return 0, ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return 0, io.ErrUnexpectedEOF
+				}
+				iNdEx++
+				if dAtA[iNdEx-1] < 0x80 {
+					break
+				}
+			}
+		case 1:
+			iNdEx += 8
+		case 2:
+			var length int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return 0, ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return 0, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				length |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if length < 0 {
+				return 0, ErrInvalidLengthTx
+			}
+			iNdEx += length
+		case 3:
+			depth++
+		case 4:
+			if depth == 0 {
+				return 0, ErrUnexpectedEndOfGroupTx
+			}
+			depth--
+		case 5:
+			iNdEx += 4
+		default:
+			return 0, fmt.Errorf("proto: illegal wireType %d", wireType)
+		}
+		if iNdEx < 0 {
+			return 0, ErrInvalidLengthTx
+		}
+		if depth == 0 {
+			return iNdEx, nil
+		}
+	}
+	return 0, io.ErrUnexpectedEOF
+}
+
+var (
+	ErrInvalidLengthTx        = fmt.Errorf("proto: negative length found during unmarshaling")
+	ErrIntOverflowTx          = fmt.Errorf("proto: integer overflow")
+	ErrUnexpectedEndOfGroupTx = fmt.Errorf("proto: unexpected end of group")
+)
