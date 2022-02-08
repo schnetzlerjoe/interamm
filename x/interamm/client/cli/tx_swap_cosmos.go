@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"io/ioutil"
 	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -31,17 +30,23 @@ func CmdSwapCosmos() *cobra.Command {
 
 			cdc := codec.NewProtoCodec(clientCtx.InterfaceRegistry)
 
-			var txMsg sdk.Msg
-			if err := cdc.UnmarshalInterfaceJSON([]byte(args[0]), &txMsg); err != nil {
-
-				// check for file path if JSON input is not provided
-				contents, err := ioutil.ReadFile(args[0])
-				if err != nil {
-					return errors.Wrap(err, "neither JSON input nor path to .json file for sdk msg were provided")
+			var json string = `{
+				"@type":"/cosmos.liquidity.v1beta1.MsgSwapWithinBatch",
+				"sender":"cosmos15ccshhmp0gsx29qpqq6g4zmltnnvgmyu9ueuadh9y2nc5zj0szls5gtddz",
+				"tokenIn": {
+					denom: uosmo
+				},
+				"routes": {
+					"poolId": "stake",
+					"tokenOutDenom": "1000"
 				}
+			}`
 
-				if err := cdc.UnmarshalInterfaceJSON(contents, &txMsg); err != nil {
-					return errors.Wrap(err, "error unmarshalling sdk msg file")
+			var txMsg sdk.Msg
+			if err := cdc.UnmarshalInterfaceJSON([]byte(json), &txMsg); err != nil {
+
+				if err != nil {
+					return errors.Wrap(err, "JSON input not provided or created incorrectly")
 				}
 			}
 
