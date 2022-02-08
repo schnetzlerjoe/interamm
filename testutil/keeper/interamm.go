@@ -17,6 +17,7 @@ import (
 	tmdb "github.com/tendermint/tm-db"
 )
 
+// Testutil Keeper
 func InterammKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	storeKey := sdk.NewKVStoreKey(types.StoreKey)
 	memStoreKey := storetypes.NewMemoryStoreKey(types.MemStoreKey)

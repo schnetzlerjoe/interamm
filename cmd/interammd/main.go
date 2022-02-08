@@ -8,6 +8,7 @@ import (
 	"github.com/tendermint/starport/starport/pkg/cosmoscmd"
 )
 
+//Main build function for root cmd
 func main() {
 	rootCmd, _ := cosmoscmd.NewRootCmd(
 		app.Name,
