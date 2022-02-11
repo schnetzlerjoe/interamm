@@ -9,6 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	intertxtypes "github.com/cosmos/interchain-accounts/x/inter-tx/types"
+	osmotypes "github.com/osmosis-labs/osmosis/x/gamm/types"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -62,8 +63,10 @@ func CmdSwapCosmos() *cobra.Command {
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},
 	}
-
+	cmd.Flags().AddFlagSet(osmotypes.FlagSetQuerySwapRoutes())
 	flags.AddTxFlagsToCmd(cmd)
+	_ = cmd.MarkFlagRequired(osmotypes.FlagSwapRoutePoolIds)
+	_ = cmd.MarkFlagRequired(osmotypes.FlagSwapRouteDenoms)
 
 	return cmd
 }
