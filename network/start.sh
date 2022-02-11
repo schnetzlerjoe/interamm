@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BINARY=interammd
-CHAIN_DIR=./data
+CHAIN_DIR=./network/data
 CHAINID_1=test-1
 CHAINID_2=test-2
 GRPCPORT_1=8090

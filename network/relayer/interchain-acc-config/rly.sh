@@ -2,7 +2,7 @@
 
 # Configure predefined mnemonic pharses
 BINARY=rly
-CHAIN_DIR=./data
+CHAIN_DIR=./network/data
 RELAYER_DIR=./relayer
 MNEMONIC_1="alley afraid soup fall idea toss can goose become valve initial strong forward bright dish figure check leopard decide warfare hub unusual join cart"
 MNEMONIC_2="record gift you once hip style during joke field prize dust unique length more pencil transfer quit train device arrive energy sort steak upset"

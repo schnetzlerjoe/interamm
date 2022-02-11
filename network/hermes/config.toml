@@ -60,7 +60,7 @@ clear_on_start = true
 #   thresholds different than this will be ignored.
 # If set to 'true', both of the above filters will be enabled.
 # [Default: false]
-filter = false
+#filter = false
 
 # Toggle the transaction confirmation mechanism.
 # The tx confirmation mechanism periodically queries the `/tx_search` RPC
@@ -79,7 +79,7 @@ enabled = true
 
 # Specify the IPv4/6 host over which the built-in HTTP server will serve the RESTful
 # API requests. Default: 127.0.0.1
-host = '127.0.0.1'
+host = '0.0.0.0'
 
 # Specify the port over which the built-in HTTP server will serve the restful API
 # requests. Default: 3000
@@ -95,7 +95,7 @@ enabled = false
 
 # Specify the IPv4/6 host over which the built-in HTTP server will serve the metrics
 # gathered by the telemetry service. Default: 127.0.0.1
-host = '127.0.0.1'
+host = '0.0.0.0'
 
 # Specify the port over which the built-in HTTP server will serve the metrics gathered
 # by the telemetry service. Default: 3001
@@ -103,9 +103,9 @@ port = 3001
 
 [[chains]]
 id = 'test-1'
-rpc_addr = 'http://127.0.0.1:16657'
-grpc_addr = 'http://127.0.0.1:8090'
-websocket_addr = 'ws://127.0.0.1:16657/websocket'
+rpc_addr = 'http://0.0.0.0:16657'
+grpc_addr = 'http://0.0.0.0:8090'
+websocket_addr = 'ws://0.0.0.0:16657/websocket'
 rpc_timeout = '10s'
 account_prefix = 'cosmos'
 key_name = 'testkey'
@@ -124,9 +124,9 @@ address_type = { derivation = 'cosmos' }
 
 [[chains]]
 id = 'test-2'
-rpc_addr = 'http://127.0.0.1:26657'
-grpc_addr = 'http://127.0.0.1:9090'
-websocket_addr = 'ws://127.0.0.1:26657/websocket'
+rpc_addr = 'http://0.0.0.0:26657'
+grpc_addr = 'http://0.0.0.0:9090'
+websocket_addr = 'ws://0.0.0.0:26657/websocket'
 rpc_timeout = '10s'
 account_prefix = 'cosmos'
 key_name = 'testkey'

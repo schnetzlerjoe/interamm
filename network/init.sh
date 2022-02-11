@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BINARY=interammd
-CHAIN_DIR=./data
+CHAIN_DIR=./network/data
 CHAINID_1=test-1
 CHAINID_2=test-2
 VAL_MNEMONIC_1="clock post desk civil pottery foster expand merit dash seminar song memory figure uniform spice circle try happy obvious trash crime hybrid hood cushion"

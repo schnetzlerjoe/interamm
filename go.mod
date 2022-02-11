@@ -5,10 +5,8 @@ go 1.16
 require (
 	github.com/cosmos/cosmos-sdk v0.45.0
 	github.com/cosmos/ibc-go/v3 v3.0.0-beta1
-	github.com/cosmos/interchain-accounts v0.0.0-20220203105223-7a4ade49c4dd
 	github.com/gogo/protobuf v1.3.3
 	github.com/golang/protobuf v1.5.2
-	github.com/google/go-cmp v0.5.7 // indirect
 	github.com/gorilla/mux v1.8.0
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/pkg/errors v0.9.1
@@ -23,6 +21,11 @@ require (
 	google.golang.org/genproto v0.0.0-20220118154757-00ab72f36ad5
 	google.golang.org/grpc v1.44.0
 	gopkg.in/yaml.v2 v2.4.0
+)
+
+require (
+	github.com/cosmos/interchain-accounts v0.0.0-20220203105223-7a4ade49c4dd
+	github.com/google/go-cmp v0.5.7 // indirect
 )
 
 replace (
