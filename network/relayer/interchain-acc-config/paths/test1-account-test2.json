@@ -9,7 +9,7 @@
     "version": "ics27-1"
   },
   "dst": {
-    "chain-id": "test-2",
+    "chain-id": "osmosis",
     "client-id": "",
     "connection-id": "",
     "channel-id": "",

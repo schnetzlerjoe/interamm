@@ -10,9 +10,9 @@ install: go.sum
 		@echo "--> Installing interammd"
 		@go install ./cmd/interammd
 		@echo "--> Installing osmosisd"
-		@bash ./network/osmosis.sh
+		@bash ./network/osmosis/osmosis.sh
 		@echo "---> Installing gaiad"
-		@bash ./network/cosmos.sh
+		@bash ./network/cosmos/cosmos.sh
 		@echo "---> Installing Hermes relayer"
 		@bash ./network/relayer/install.sh
 
@@ -121,20 +121,13 @@ proto-update-deps:
 ###                                Initialize                               ###
 ###############################################################################
 
-init: kill-dev install 
+init: kill-dev 
 	@echo "Initializing both blockchains..."
 	./network/init.sh
 	./network/start.sh
 	@echo "Initializing relayer..." 
 	./network/hermes/restore-keys.sh
 	./network/hermes/create-conn.sh
-
-init-golang-rly: kill-dev install
-	@echo "Initializing both blockchains..."
-	./network/init.sh
-	./network/start.sh
-	@echo "Initializing relayer..."
-	./network/relayer/interchain-acc-config/rly.sh
 
 start: 
 	@echo "Starting up test network"
@@ -144,6 +137,8 @@ start-rly:
 	./network/hermes/start.sh
 
 kill-dev:
-	@echo "Killing interammd and removing previous data"
+	@echo "Killing interammd, osmosisd, gaiad and removing previous data"
 	-@rm -rf ./data
 	-@killall interammd 2>/dev/null
+	-@killall osmosisd 2>/dev/null
+	-@killall gaiad 2>/dev/null
