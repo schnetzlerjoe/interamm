@@ -2,8 +2,7 @@
 
 BINARY=interammd
 CHAIN_DIR=./network/data
-CHAINID_1=test-1
-CHAINID_2=test-2
+CHAINID_1=interamm
 VAL_MNEMONIC_1="clock post desk civil pottery foster expand merit dash seminar song memory figure uniform spice circle try happy obvious trash crime hybrid hood cushion"
 VAL_MNEMONIC_2="angry twist harsh drastic left brass behave host shove marriage fall update business leg direct reward object ugly security warm tuna model broccoli choice"
 DEMO_MNEMONIC_1="banner spread envelope side kite person disagree path silver will brother under couch edit food venture squirrel civil budget number acquire point work mass"
@@ -12,12 +11,16 @@ RLY_MNEMONIC_1="alley afraid soup fall idea toss can goose become valve initial 
 RLY_MNEMONIC_2="record gift you once hip style during joke field prize dust unique length more pencil transfer quit train device arrive energy sort steak upset"
 P2PPORT_1=16656
 P2PPORT_2=26656
+P2PPORT_3=36656
 RPCPORT_1=16657
 RPCPORT_2=26657
+RPCPORT_3=36657
 RESTPORT_1=1316
 RESTPORT_2=1317
+RESTPORT_3=1318
 ROSETTA_1=8080
 ROSETTA_2=8081
+ROSETTA_3=8082
 
 # Stop if it is already running 
 if pgrep -x "$BINARY" >/dev/null; then

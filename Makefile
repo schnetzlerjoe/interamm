@@ -9,6 +9,12 @@ DOCKER_BUF := $(DOCKER) run --rm -v $(CURDIR):/workspace --workdir /workspace bu
 install: go.sum
 		@echo "--> Installing interammd"
 		@go install ./cmd/interammd
+		@echo "--> Installing osmosisd"
+		@bash ./network/osmosis.sh
+		@echo "---> Installing gaiad"
+		@bash ./network/cosmos.sh
+		@echo "---> Installing Hermes relayer"
+		@bash ./network/relayer/install.sh
 
 install-debug: go.sum
 	go build -gcflags="all=-N -l" ./cmd/interammd
