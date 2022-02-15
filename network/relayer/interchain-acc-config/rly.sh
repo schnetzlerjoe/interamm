@@ -23,19 +23,19 @@ $BINARY config add-chains $PWD/network/relayer/interchain-acc-config/chains --ho
 $BINARY config add-paths $PWD/network/relayer/interchain-acc-config/paths --home $CHAIN_DIR/$RELAYER_DIR
 
 echo "Restoring accounts..."
-$BINARY keys restore test-1 test-1 "$MNEMONIC_1" --home $CHAIN_DIR/$RELAYER_DIR
-$BINARY keys restore test-2 test-2 "$MNEMONIC_2" --home $CHAIN_DIR/$RELAYER_DIR
-$BINARY keys restore test-3 test-3 "$MNEMONIC_3" --home $CHAIN_DIR/$RELAYER_DIR
+$BINARY keys restore interamm interamm "$MNEMONIC_1" --home $CHAIN_DIR/$RELAYER_DIR
+$BINARY keys restore osmosis osmosis "$MNEMONIC_2" --home $CHAIN_DIR/$RELAYER_DIR
+$BINARY keys restore gaia gaia "$MNEMONIC_3" --home $CHAIN_DIR/$RELAYER_DIR
 
 echo "Initializing light clients for all chains..."
-$BINARY light init test-1 -f --home $CHAIN_DIR/$RELAYER_DIR
-$BINARY light init test-2 -f --home $CHAIN_DIR/$RELAYER_DIR
-$BINARY light init test-3 -f --home $CHAIN_DIR/$RELAYER_DIR
+$BINARY light init interamm -f --home $CHAIN_DIR/$RELAYER_DIR
+$BINARY light init osmosis -f --home $CHAIN_DIR/$RELAYER_DIR
+$BINARY light init gaia -f --home $CHAIN_DIR/$RELAYER_DIR
 
 echo "Linking all chains..."
-$BINARY tx link test1-account-test2 --home $CHAIN_DIR/$RELAYER_DIR
-$BINARY tx link test1-account-test3 --home $CHAIN_DIR/$RELAYER_DIR
+$BINARY tx link interamm-account-osmosis --home $CHAIN_DIR/$RELAYER_DIR
+$BINARY tx link interamm-account-gaia --home $CHAIN_DIR/$RELAYER_DIR
 
 echo "Starting to listen relayer..."
-$BINARY start test1-account-test2 --home $CHAIN_DIR/$RELAYER_DIR
-$BINARY start test1-account-test3 --home $CHAIN_DIR/$RELAYER_DIR
+$BINARY start interamm-account-osmosis --home $CHAIN_DIR/$RELAYER_DIR
+$BINARY start interamm-account-gaia --home $CHAIN_DIR/$RELAYER_DIR

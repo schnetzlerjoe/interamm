@@ -1,6 +1,6 @@
 {
-  "key": "test-1",
-  "chain-id": "test-1",
+  "key": "interamm",
+  "chain-id": "interamm",
   "rpc-addr": "http://127.0.0.1:16657",
   "account-prefix": "cosmos",
   "gas-prices": "0.0025stake",
