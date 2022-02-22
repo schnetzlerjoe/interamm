@@ -1,18 +1,18 @@
 {
     "src": {
       "chain-id": "interamm",
-      "client-id": "07-tendermint-1",
-      "connection-id": "connection-1",
-      "channel-id": "channel-1",
+      "client-id": "",
+      "connection-id": "",
+      "channel-id": "",
       "port-id": "ibcaccount",
       "order": "ordered",
       "version": "ics27-1"
     },
     "dst": {
       "chain-id": "gaia",
-      "client-id": "07-tendermint-1",
-      "connection-id": "connection-1",
-      "channel-id": "channel-1",
+      "client-id": "",
+      "connection-id": "",
+      "channel-id": "",
       "port-id": "ibcaccount",
       "order": "ordered",
       "version": "ics27-1"
