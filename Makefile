@@ -130,7 +130,7 @@ init: kill-dev
 	./network/hermes/create-conn.sh
 
 start: 
-	@echo "Starting up test network"
+	@echo "Starting up network"
 	./network/start.sh
 
 start-rly:
@@ -142,3 +142,11 @@ kill-dev:
 	-@killall interammd 2>/dev/null
 	-@killall osmosisd 2>/dev/null
 	-@killall gaiad 2>/dev/null
+
+get-genesis:
+	@echo $(HOME)
+	@wget -O $(HOME)/interamm/network/data/gaia/config/genesis.json https://github.com/osmosis-labs/networks/raw/main/osmosis-1/genesis.json
+
+	@wget https://github.com/cosmos/mainnet/raw/master/genesis.cosmoshub-4.json.gz
+	@gzip -d genesis.cosmoshub-4.json.gz
+	@mv genesis.cosmoshub-4.json $(HOME)/interamm/network/data/gaia/config/genesis.json
