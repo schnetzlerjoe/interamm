@@ -3,6 +3,7 @@ package interamm
 import (
 	"encoding/json"
 	"fmt"
+
 	// this line is used by starport scaffolding # 1
 
 	"github.com/gorilla/mux"
@@ -16,6 +17,7 @@ import (
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
+	icacontrollerkeeper "github.com/cosmos/ibc-go/v3/modules/apps/27-interchain-accounts/controller/keeper"
 	"github.com/schnetzlerjoe/interamm/x/interamm/client/cli"
 	"github.com/schnetzlerjoe/interamm/x/interamm/keeper"
 	"github.com/schnetzlerjoe/interamm/x/interamm/types"
@@ -98,9 +100,10 @@ func (AppModuleBasic) GetQueryCmd() *cobra.Command {
 type AppModule struct {
 	AppModuleBasic
 
-	keeper        keeper.Keeper
-	accountKeeper types.AccountKeeper
-	bankKeeper    types.BankKeeper
+	keeper              keeper.Keeper
+	accountKeeper       types.AccountKeeper
+	bankKeeper          types.BankKeeper
+	icaControllerKeeper icacontrollerkeeper.Keeper
 }
 
 func NewAppModule(
@@ -108,12 +111,14 @@ func NewAppModule(
 	keeper keeper.Keeper,
 	accountKeeper types.AccountKeeper,
 	bankKeeper types.BankKeeper,
+	icaControllerKeeper icacontrollerkeeper.Keeper,
 ) AppModule {
 	return AppModule{
-		AppModuleBasic: NewAppModuleBasic(cdc),
-		keeper:         keeper,
-		accountKeeper:  accountKeeper,
-		bankKeeper:     bankKeeper,
+		AppModuleBasic:      NewAppModuleBasic(cdc),
+		keeper:              keeper,
+		accountKeeper:       accountKeeper,
+		bankKeeper:          bankKeeper,
+		icaControllerKeeper: icaControllerKeeper,
 	}
 }
 

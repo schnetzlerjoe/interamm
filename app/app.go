@@ -415,7 +415,7 @@ func New(
 		keys[interammmoduletypes.MemStoreKey],
 		app.GetSubspace(interammmoduletypes.ModuleName),
 	)
-	interammModule := interammmodule.NewAppModule(appCodec, app.InterammKeeper, app.AccountKeeper, app.BankKeeper)
+	interammModule := interammmodule.NewAppModule(appCodec, app.InterammKeeper, app.AccountKeeper, app.BankKeeper, app.ICAControllerKeeper)
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 

@@ -1,6 +1,6 @@
 {
     "src": {
-      "chain-id": "interamm",
+      "chain-id": "agoric",
       "client-id": "",
       "connection-id": "",
       "channel-id": "",
@@ -9,7 +9,7 @@
       "version": "ics27-1"
     },
     "dst": {
-      "chain-id": "gaia",
+      "chain-id": "theta-testnet-001",
       "client-id": "",
       "connection-id": "",
       "channel-id": "",

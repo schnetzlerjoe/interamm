@@ -40,7 +40,6 @@ func GetTxCmd() *cobra.Command {
 	}
 
 	cmd.AddCommand(CmdSwapCosmos())
-	cmd.AddCommand(CmdSwapOsmosis())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

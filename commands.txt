@@ -1,0 +1,17 @@
+export DEMOWALLET_1=$(interammd keys show demowallet -a --keyring-backend test --home ./network/data/interamm) && echo $DEMOWALLET_1;
+
+export DEMOWALLET_2=$(interammd keys show demowallet -a --keyring-backend test --home ./network/data/theta-testnet-001) && echo $DEMOWALLET_2;
+
+interammd tx intertx register --from $DEMOWALLET_1 --connection-id connection-0 --chain-id interamm --home ./network/data/interamm --node tcp://localhost:16657 --keyring-backend test -y
+
+interammd query intertx interchainaccounts connection-0 $DEMOWALLET_1 --home ./network/data/interamm --node tcp://localhost:16657
+
+export ICA_ADDR=$(interammd query intertx interchainaccounts connection-0 $DEMOWALLET_1 -o json --home ./network/data/interamm --node tcp://localhost:16657 | jq -r '.interchain_account_address') && echo $ICA_ADDR
+
+interammd tx intertx submit '{"@type":"/cosmos.bank.v1beta1.MsgSend","from_address":"cosmos13mjudacmynr744x9dkh6xcqgvnje57et0q2pjzhuxvxlkh2zgt0q26klmq","to_address":"cosmos10h9stc5v6ntgeygf5xf945njqq5h32r53uquvw","amount": [{"denom": "uatom","amount": "45000000"}]}' --connection-id connection-0 --from demowallet --chain-id interamm --home ./network/data/interamm --node tcp://localhost:16657 --keyring-backend test -y
+
+gaiad tx bank send cosmos10h9stc5v6ntgeygf5xf945njqq5h32r53uquvw cosmos13mjudacmynr744x9dkh6xcqgvnje57et0q2pjzhuxvxlkh2zgt0q26klmq 400000000uatom --home ./network/data/theta-testnet-001 --from rly --chain-id theta-testnet-001 --node tcp://rpc.state-sync-01.theta-testnet.polypore.xyz:26657 --keyring-backend test -y
+
+interammd query ibc channel channels --home ./network/data/interamm --node tcp://localhost:16657
+
+interammd query ibc channel channels --home ./network/data/interamm --node tcp://rpc-theta.interchain.io:26657

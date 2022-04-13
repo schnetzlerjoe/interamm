@@ -9,10 +9,6 @@ DOCKER_BUF := $(DOCKER) run --rm -v $(CURDIR):/workspace --workdir /workspace bu
 install: go.sum
 		@echo "--> Installing interammd"
 		@go install ./cmd/interammd
-		@echo "--> Installing osmosisd"
-		@bash ./network/osmosis/osmosis.sh
-		@echo "---> Installing gaiad"
-		@bash ./network/cosmos/cosmos.sh
 		@echo "---> Installing Hermes relayer"
 		@bash ./network/relayer/install.sh
 
@@ -137,11 +133,9 @@ start-rly:
 	./network/hermes/start.sh
 
 kill-dev:
-	@echo "Killing interammd, osmosisd, gaiad and removing previous data"
+	@echo "Killing interammd and removing previous data"
 	-@rm -rf ./data
 	-@killall interammd 2>/dev/null
-	-@killall osmosisd 2>/dev/null
-	-@killall gaiad 2>/dev/null
 
 get-genesis:
 	@echo $(HOME)

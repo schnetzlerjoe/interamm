@@ -6,7 +6,6 @@ set -e
 
 ### Configure the clients and connection
 echo "Initiating connection handshake..."
-$HERMES_BINARY -c $CONFIG_DIR create connection interamm osmosis
-$HERMES_BINARY -c $CONFIG_DIR create connection interamm gaia
+$HERMES_BINARY -c $CONFIG_DIR create connection interamm theta-testnet-001
 
 sleep 2

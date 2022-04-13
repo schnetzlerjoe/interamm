@@ -28,10 +28,6 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSwapCosmos int = 100
 
-	opWeightMsgSwapOsmosis = "op_weight_msg_create_chain"
-	// TODO: Determine the simulation weight value
-	defaultWeightMsgSwapOsmosis int = 100
-
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -74,17 +70,6 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSwapCosmos,
 		interammsimulation.SimulateMsgSwapCosmos(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
-
-	var weightMsgSwapOsmosis int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSwapOsmosis, &weightMsgSwapOsmosis, nil,
-		func(_ *rand.Rand) {
-			weightMsgSwapOsmosis = defaultWeightMsgSwapOsmosis
-		},
-	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgSwapOsmosis,
-		interammsimulation.SimulateMsgSwapOsmosis(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
